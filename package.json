@@ -13,7 +13,8 @@
     "test": "jest",
     "test:unit": "jest \"src/.*\\.unit\\.test\\.ts\"",
     "test:unit:watch": "npm run test:unit -- --watch",
-    "test:int": "jest \"src/.*\\.int\\.test\\.ts\""
+    "test:int": "jest \"src/.*\\.int\\.test\\.ts\"",
+    "test:int:watch": "npm run test:int -- --watch"
   },
   "keywords": [
     "moleculer",
