@@ -25,6 +25,10 @@ class BaseAdapter {
   set(key, value) {
     throw new Error("'get' method must be overriden by adapter");
   }
+
+  update(key, value) {
+    throw new Error("'update' method must be overriden by adapter");
+  }
 }
 
 export default BaseAdapter;

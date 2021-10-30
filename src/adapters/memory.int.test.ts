@@ -1,4 +1,5 @@
 import MemoryAdapter from "./memory";
+import { NonExistingKeyError } from "../errors/memoryAdapter";
 
 const adapter = new MemoryAdapter();
 
@@ -27,5 +28,15 @@ describe("Memory Adapter", () => {
 
   it("should return undefined for a non-existing key", () => {
     expect(adapter.get("non_existing_key")).toBe(undefined);
+  });
+
+  it("should throw an error while trying to update a key that doesn't exist", () => {
+    expect(() => adapter.update("non_existing_key", "value")).toThrow(NonExistingKeyError);
+    expect(() => adapter.update("non_existing_key", "value")).toThrow("key 'non_existing_key' doesn't exist");
+  });
+
+  it("should update a value of a key that exists", () => {
+    expect(adapter.update("an_existing_key", "value_3")).toBe("value_3");
+    expect(adapter.get("an_existing_key")).toBe("value_3");
   });
 });

@@ -133,4 +133,48 @@ describe("Service Mixin", () => {
       expect(mockedExistsFn).toHaveBeenCalled();
     });
   });
+
+  describe("UPDATE", () => {
+    it("should throw a validation error if no param is passed is passed", async () => {
+      try {
+        await broker.call("numbers.update");
+      } catch (error) {
+        expect(error).toBeInstanceOf(ValidationError);
+      }
+    });
+
+    it("should throw a validation error if params is an empty object", async () => {
+      try {
+        await broker.call("numbers.update", {});
+      } catch (error) {
+        expect(error).toBeInstanceOf(ValidationError);
+      }
+    });
+
+    it("should throw a validation error if no 'key' param is passed", async () => {
+      try {
+        await broker.call("numbers.update", { keyz: "no", value: 69 });
+      } catch (error) {
+        expect(error).toBeInstanceOf(ValidationError);
+      }
+    });
+
+    it("should throw a validation error if no 'value' param is passed", async () => {
+      try {
+        await broker.call("numbers.update", { key: "no", valu: 69 });
+      } catch (error) {
+        expect(error).toBeInstanceOf(ValidationError);
+      }
+    });
+
+    it("should call the set method and return the found value", async () => {
+      const mockedUpdateFn = jest.fn(async () => 7);
+      service.update = mockedUpdateFn;
+
+      const updatedValue = await broker.call("numbers.update", { key: "current_count", value: 7 });
+      expect(updatedValue).toBe(7);
+      expect(mockedUpdateFn).toBeCalledTimes(1);
+      expect(mockedUpdateFn).toHaveBeenCalled();
+    });
+  });
 });

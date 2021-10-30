@@ -11,6 +11,7 @@
     "precommit": "npm run lint && npm run prettify",
     "prepublish": "npm run build",
     "test": "jest",
+    "test:watch": "jest --watch",
     "test:unit": "jest \"src/.*\\.unit\\.test\\.ts\"",
     "test:unit:watch": "npm run test:unit -- --watch",
     "test:int": "jest \"src/.*\\.int\\.test\\.ts\"",

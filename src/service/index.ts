@@ -12,7 +12,7 @@ export default {
   actions: {
     exists: {
       params: { key: keySchema },
-      async handler(ctx: Context<{ key: Key }>): Promise<Value> {
+      async handler(ctx: Context<{ key: Key }>): Promise<boolean> {
         return await this.exists(ctx);
       },
     },
@@ -30,6 +30,13 @@ export default {
         return await this.set(ctx);
       },
     },
+
+    update: {
+      params: { key: keySchema },
+      async handler(ctx: Context<{ key: Key; value: Value }>): Promise<Value> {
+        return await this.update(ctx);
+      },
+    },
   },
 
   methods: {
@@ -41,22 +48,28 @@ export default {
       return await this.adapter.disconnect();
     },
 
-    async exists(ctx: Context<{ key: Key }>): Promise<void> {
+    async exists(ctx: Context<{ key: Key }>): Promise<boolean> {
       const params = ctx.params;
       const { key } = params;
       return await this.adapter.exists(key);
     },
 
-    async get(ctx: Context<{ key: Key }>): Promise<void> {
+    async get(ctx: Context<{ key: Key }>): Promise<Value> {
       const params = ctx.params;
       const { key } = params;
       return await this.adapter.get(key);
     },
 
-    async set(ctx: Context<{ key: Key; value: Value }>): Promise<void> {
+    async set(ctx: Context<{ key: Key; value: Value }>): Promise<Value> {
       const params = ctx.params;
       const { key, value } = params;
       return await this.adapter.set(key, value);
+    },
+
+    async update(ctx: Context<{ key: Key; value: Value }>): Promise<Value> {
+      const params = ctx.params;
+      const { key, value } = params;
+      return await this.adapter.update(key, value);
     },
   },
 

@@ -1,6 +1,7 @@
 import { Service } from "moleculer";
 
 import BaseAdapter from "./base";
+import { NonExistingKeyError } from "../errors/memoryAdapter";
 
 class MemoryAdapter extends BaseAdapter {
   service: Service;
@@ -29,6 +30,12 @@ class MemoryAdapter extends BaseAdapter {
   set(key: Key, value: Value): Value {
     this.store.set(key, value);
     return value;
+  }
+
+  update(key: Key, value: Value): Value {
+    if (!this.exists(key)) throw new NonExistingKeyError(key);
+
+    return this.set(key, value);
   }
 }
 
