@@ -44,6 +44,12 @@ export default {
         return await this.delete(ctx);
       },
     },
+
+    keys: {
+      async handler(): Promise<Key[]> {
+        return await this.keys();
+      },
+    },
   },
 
   methods: {
@@ -83,6 +89,10 @@ export default {
       const params = ctx.params;
       const { key } = params;
       return await this.adapter.delete(key);
+    },
+
+    async keys(): Promise<Key[]> {
+      return await this.adapter.keys();
     },
   },
 

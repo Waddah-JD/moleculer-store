@@ -213,4 +213,16 @@ describe("Service Mixin", () => {
       expect(mockedDeleteFn).toHaveBeenCalled();
     });
   });
+
+  describe("KEYS", () => {
+    it("should call the keys method and return a list of existing keys", async () => {
+      const mockedKeysFn = jest.fn(async () => ["key 1", "key 2"]);
+      service.keys = mockedKeysFn;
+
+      const existsResult = await broker.call("numbers.keys");
+      expect(existsResult).toStrictEqual(["key 1", "key 2"]);
+      expect(mockedKeysFn).toBeCalledTimes(1);
+      expect(mockedKeysFn).toHaveBeenCalled();
+    });
+  });
 });

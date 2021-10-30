@@ -40,6 +40,10 @@ describe("Memory Adapter", () => {
     expect(adapter.get("an_existing_key")).toBe("value_3");
   });
 
+  it("should show all existing keys", () => {
+    expect(adapter.keys()).toStrictEqual(["an_existing_key", "totally_new_key"]);
+  });
+
   it("should delete a value of a key that exists and return true", () => {
     expect(adapter.delete("an_existing_key")).toBe(true);
     expect(adapter.get("an_existing_key")).toBeUndefined();

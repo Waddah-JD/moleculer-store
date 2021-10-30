@@ -61,6 +61,11 @@ describe("Service with a memory adapter", () => {
       }
     });
 
+    it("should return all keys after calling the keys action", async () => {
+      const existingKeys = await broker.call("numbers.keys");
+      expect(existingKeys).toStrictEqual(["currentCount"]);
+    });
+
     it("should delete an existing key and return true", async () => {
       const deleteIsSuccessful = await broker.call("numbers.delete", { key: "currentCount" });
       expect(deleteIsSuccessful).toEqual(true);

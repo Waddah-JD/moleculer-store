@@ -33,6 +33,10 @@ class BaseAdapter {
   delete(key) {
     throw new Error("'delete' method must be overriden by adapter");
   }
+
+  keys() {
+    throw new Error("'keys' method must be overriden by adapter");
+  }
 }
 
 export default BaseAdapter;
