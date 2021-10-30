@@ -1,3 +1,22 @@
+<a name="1.1.0"></a>
+
+# 1.1.0 (2021-10-30)
+
+## Changes
+
+- add `exists` functionality
+- add `update` functionality
+- add `delete` functionality
+- add `clear` functionality
+- add `keys` functionality
+- add `value` functionality
+- add unit tests
+- add integration tests for new and old functionality
+- add integration tests for new and old functionality
+- add documentation
+
+---
+
 <a name="1.0.0"></a>
 
 # 1.0.0 (2021-10-24)
