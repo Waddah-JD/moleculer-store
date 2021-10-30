@@ -41,6 +41,10 @@ class BaseAdapter {
   values() {
     throw new Error("'values' method must be overriden by adapter");
   }
+
+  clear() {
+    throw new Error("'clear' method must be overriden by adapter");
+  }
 }
 
 export default BaseAdapter;

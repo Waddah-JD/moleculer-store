@@ -237,4 +237,15 @@ describe("Service Mixin", () => {
       expect(mockedValuesFn).toHaveBeenCalled();
     });
   });
+
+  describe("CLEAR", () => {
+    it("should call the clear method", async () => {
+      const mockedClearFn = jest.fn(async () => undefined);
+      service.clear = mockedClearFn;
+
+      await broker.call("numbers.clear");
+      expect(mockedClearFn).toBeCalledTimes(1);
+      expect(mockedClearFn).toHaveBeenCalled();
+    });
+  });
 });

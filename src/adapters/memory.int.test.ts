@@ -40,14 +40,6 @@ describe("Memory Adapter", () => {
     expect(adapter.get("an_existing_key")).toBe("value_3");
   });
 
-  it("should show all existing keys", () => {
-    expect(adapter.keys()).toStrictEqual(["an_existing_key", "totally_new_key"]);
-  });
-
-  it("should show all existing values", () => {
-    expect(adapter.values()).toStrictEqual(["value_3", "value_1"]);
-  });
-
   it("should delete a value of a key that exists and return true", () => {
     expect(adapter.delete("an_existing_key")).toBe(true);
     expect(adapter.get("an_existing_key")).toBeUndefined();
@@ -55,5 +47,19 @@ describe("Memory Adapter", () => {
 
   it("should return false while after trying to delte a key that doesn't exist", () => {
     expect(adapter.delete("whatever")).toBe(false);
+  });
+
+  it("should show all existing keys", () => {
+    expect(adapter.keys()).toStrictEqual(["totally_new_key"]);
+  });
+
+  it("should show all existing values", () => {
+    expect(adapter.values()).toStrictEqual(["value_1"]);
+  });
+
+  it("should clear store deleting all keys and values", () => {
+    expect(adapter.clear()).toBeUndefined();
+    expect(adapter.keys()).toStrictEqual([]);
+    expect(adapter.values()).toStrictEqual([]);
   });
 });

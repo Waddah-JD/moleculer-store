@@ -67,8 +67,8 @@ describe("Service with a memory adapter", () => {
     });
 
     it("should return all values after calling the values action", async () => {
-      const existingKeys = await broker.call("numbers.values");
-      expect(existingKeys).toStrictEqual([6]);
+      const existingValues = await broker.call("numbers.values");
+      expect(existingValues).toStrictEqual([6]);
     });
 
     it("should delete an existing key and return true", async () => {
@@ -82,6 +82,17 @@ describe("Service with a memory adapter", () => {
     it("should return false while trying to delte a key that doesn't exist", async () => {
       const deleteIsSuccessful = await broker.call("numbers.delete", { key: "currentCount" });
       expect(deleteIsSuccessful).toEqual(false);
+    });
+
+    it("should return undefined after clearing keys and values", async () => {
+      const newValue = await broker.call("numbers.set", { key: "newKey", value: "newValue" });
+      expect(newValue).toBe("newValue");
+      const clearResult = await broker.call("numbers.clear");
+      expect(clearResult).toBeUndefined();
+      const existingKeys = await broker.call("numbers.keys");
+      const existingValues = await broker.call("numbers.values");
+      expect(existingKeys).toStrictEqual([]);
+      expect(existingValues).toStrictEqual([]);
     });
   });
 });

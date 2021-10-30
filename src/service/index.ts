@@ -56,6 +56,12 @@ export default {
         return await this.values();
       },
     },
+
+    clear: {
+      async handler(): Promise<void> {
+        return await this.clear();
+      },
+    },
   },
 
   methods: {
@@ -103,6 +109,10 @@ export default {
 
     async values(): Promise<Value[]> {
       return await this.adapter.values();
+    },
+
+    async clear(): Promise<void> {
+      return await this.adapter.clear();
     },
   },
 
