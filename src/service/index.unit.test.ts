@@ -91,8 +91,8 @@ describe("Service Mixin", () => {
       const mockedSetFn = jest.fn(async () => 6);
       service.set = mockedSetFn;
 
-      const foundDoc = await broker.call("numbers.set", { key: "current_count", value: 6 });
-      expect(foundDoc).toBe(6);
+      const setValue = await broker.call("numbers.set", { key: "current_count", value: 6 });
+      expect(setValue).toBe(6);
       expect(mockedSetFn).toBeCalledTimes(1);
       expect(mockedSetFn).toHaveBeenCalled();
     });
@@ -127,8 +127,8 @@ describe("Service Mixin", () => {
       const mockedExistsFn = jest.fn(async () => true);
       service.exists = mockedExistsFn;
 
-      const foundDoc = await broker.call("numbers.exists", { key: "current_count" });
-      expect(foundDoc).toBe(true);
+      const existsResult = await broker.call("numbers.exists", { key: "current_count" });
+      expect(existsResult).toBe(true);
       expect(mockedExistsFn).toBeCalledTimes(1);
       expect(mockedExistsFn).toHaveBeenCalled();
     });
