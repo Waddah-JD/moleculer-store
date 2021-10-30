@@ -50,6 +50,12 @@ export default {
         return await this.keys();
       },
     },
+
+    values: {
+      async handler(): Promise<Value[]> {
+        return await this.values();
+      },
+    },
   },
 
   methods: {
@@ -93,6 +99,10 @@ export default {
 
     async keys(): Promise<Key[]> {
       return await this.adapter.keys();
+    },
+
+    async values(): Promise<Value[]> {
+      return await this.adapter.values();
     },
   },
 

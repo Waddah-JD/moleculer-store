@@ -45,6 +45,10 @@ class MemoryAdapter extends BaseAdapter {
   keys(): Key[] {
     return Array.from(this.store.keys());
   }
+
+  values(): Value[] {
+    return Array.from(this.store.values());
+  }
 }
 
 export default MemoryAdapter;

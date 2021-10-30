@@ -14,5 +14,6 @@ describe("Memory Adapter", () => {
     expect(adapter.set).toBeInstanceOf(Function);
     expect(adapter.delete).toBeInstanceOf(Function);
     expect(adapter.keys).toBeInstanceOf(Function);
+    expect(adapter.values).toBeInstanceOf(Function);
   });
 });

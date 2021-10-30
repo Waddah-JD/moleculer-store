@@ -37,6 +37,10 @@ class BaseAdapter {
   keys() {
     throw new Error("'keys' method must be overriden by adapter");
   }
+
+  values() {
+    throw new Error("'values' method must be overriden by adapter");
+  }
 }
 
 export default BaseAdapter;

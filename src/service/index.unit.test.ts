@@ -225,4 +225,16 @@ describe("Service Mixin", () => {
       expect(mockedKeysFn).toHaveBeenCalled();
     });
   });
+
+  describe("VALUES", () => {
+    it("should call the values method and return a list of existing values", async () => {
+      const mockedValuesFn = jest.fn(async () => ["value 1", "value 2"]);
+      service.values = mockedValuesFn;
+
+      const existsResult = await broker.call("numbers.values");
+      expect(existsResult).toStrictEqual(["value 1", "value 2"]);
+      expect(mockedValuesFn).toBeCalledTimes(1);
+      expect(mockedValuesFn).toHaveBeenCalled();
+    });
+  });
 });
