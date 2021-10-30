@@ -2,7 +2,7 @@
 
 import { Context } from "moleculer";
 
-import { keySchema } from "./params";
+import { keySchema, valueSchema } from "./params";
 
 export default {
   name: "",
@@ -27,7 +27,7 @@ export default {
 
     set: {
       rest: "POST /:key",
-      params: { key: keySchema },
+      params: { key: keySchema, value: valueSchema },
       async handler(ctx: Context<{ key: Key; value: Value }>): Promise<Value> {
         return await this.set(ctx);
       },
@@ -35,7 +35,7 @@ export default {
 
     update: {
       rest: "PUT /:key",
-      params: { key: keySchema },
+      params: { key: keySchema, value: valueSchema },
       async handler(ctx: Context<{ key: Key; value: Value }>): Promise<Value> {
         return await this.update(ctx);
       },

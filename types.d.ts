@@ -1,2 +1,2 @@
 type Key = number | string;
-type Value = Key | boolean | Record<string, unknown> | null;
+type Value = Key | boolean | Record<string, unknown>;
