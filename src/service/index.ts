@@ -12,7 +12,6 @@ export default {
   actions: {
     get: {
       params: { key: keySchema },
-      rest: { method: "GET", path: "/" },
       async handler(ctx: Context<{ key: Key }>): Promise<Value> {
         return await this.get(ctx);
       },
@@ -20,7 +19,6 @@ export default {
 
     set: {
       params: { key: keySchema },
-      rest: { method: "POST", path: "/" },
       async handler(ctx: Context<{ key: Key; value: Value }>): Promise<Value> {
         return await this.set(ctx);
       },
