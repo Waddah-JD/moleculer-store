@@ -56,6 +56,8 @@ describe("Service with a memory adapter", () => {
         await broker.call("numbers.update", { key: "previousCount", value: 6 });
       } catch (error) {
         expect(error).toBeInstanceOf(NonExistingKeyError);
+        expect(error.name).toEqual("NonExistingKeyError");
+        expect(error.message).toEqual("key 'previousCount' doesn't exist");
       }
     });
   });
