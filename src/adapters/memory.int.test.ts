@@ -39,4 +39,13 @@ describe("Memory Adapter", () => {
     expect(adapter.update("an_existing_key", "value_3")).toBe("value_3");
     expect(adapter.get("an_existing_key")).toBe("value_3");
   });
+
+  it("should delete a value of a key that exists and return true", () => {
+    expect(adapter.delete("an_existing_key")).toBe(true);
+    expect(adapter.get("an_existing_key")).toBeUndefined();
+  });
+
+  it("should return false while after trying to delte a key that doesn't exist", () => {
+    expect(adapter.delete("whatever")).toBe(false);
+  });
 });

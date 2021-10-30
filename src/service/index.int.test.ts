@@ -10,7 +10,7 @@ beforeAll(() => adapter.connect());
 afterAll(() => adapter.disconnect());
 
 describe("Service with a memory adapter", () => {
-  describe("Direct action calls", () => {
+  describe("Action calls", () => {
     const broker = new ServiceBroker({ logger: false });
     broker.createService({
       name: "numbers",
@@ -59,6 +59,19 @@ describe("Service with a memory adapter", () => {
         expect(error.name).toEqual("NonExistingKeyError");
         expect(error.message).toEqual("key 'previousCount' doesn't exist");
       }
+    });
+
+    it("should delete an existing key and return true", async () => {
+      const deleteIsSuccessful = await broker.call("numbers.delete", { key: "currentCount" });
+      expect(deleteIsSuccessful).toEqual(true);
+
+      const doesNotExistAnyMore = await broker.call("numbers.get", { key: "currentCount" });
+      expect(doesNotExistAnyMore).toBeUndefined();
+    });
+
+    it("should return false while trying to delte a key that doesn't exist", async () => {
+      const deleteIsSuccessful = await broker.call("numbers.delete", { key: "currentCount" });
+      expect(deleteIsSuccessful).toEqual(false);
     });
   });
 });

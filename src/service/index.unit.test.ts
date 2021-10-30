@@ -177,4 +177,40 @@ describe("Service Mixin", () => {
       expect(mockedUpdateFn).toHaveBeenCalled();
     });
   });
+
+  describe("DELETE", () => {
+    it("should throw a validation error if no param is passed", async () => {
+      try {
+        await broker.call("numbers.delete");
+      } catch (error) {
+        expect(error).toBeInstanceOf(ValidationError);
+      }
+    });
+
+    it("should throw a validation error if params is an empty object", async () => {
+      try {
+        await broker.call("numbers.delete", {});
+      } catch (error) {
+        expect(error).toBeInstanceOf(ValidationError);
+      }
+    });
+
+    it("should throw a validation error if no param 'key' is passed", async () => {
+      try {
+        await broker.call("numbers.delete", { keyz: "no" });
+      } catch (error) {
+        expect(error).toBeInstanceOf(ValidationError);
+      }
+    });
+
+    it("should call the delete method and return a boolean", async () => {
+      const mockedDeleteFn = jest.fn(async () => true);
+      service.delete = mockedDeleteFn;
+
+      const existsResult = await broker.call("numbers.delete", { key: "current_count" });
+      expect(existsResult).toBe(true);
+      expect(mockedDeleteFn).toBeCalledTimes(1);
+      expect(mockedDeleteFn).toHaveBeenCalled();
+    });
+  });
 });

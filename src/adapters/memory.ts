@@ -37,6 +37,10 @@ class MemoryAdapter extends BaseAdapter {
 
     return this.set(key, value);
   }
+
+  delete(key: Key): boolean {
+    return this.store.delete(key);
+  }
 }
 
 export default MemoryAdapter;

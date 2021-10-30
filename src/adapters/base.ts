@@ -29,6 +29,10 @@ class BaseAdapter {
   update(key, value) {
     throw new Error("'update' method must be overriden by adapter");
   }
+
+  delete(key) {
+    throw new Error("'delete' method must be overriden by adapter");
+  }
 }
 
 export default BaseAdapter;

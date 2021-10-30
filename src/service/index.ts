@@ -37,6 +37,13 @@ export default {
         return await this.update(ctx);
       },
     },
+
+    delete: {
+      params: { key: keySchema },
+      async handler(ctx: Context<{ key: Key }>): Promise<boolean> {
+        return await this.delete(ctx);
+      },
+    },
   },
 
   methods: {
@@ -70,6 +77,12 @@ export default {
       const params = ctx.params;
       const { key, value } = params;
       return await this.adapter.update(key, value);
+    },
+
+    async delete(ctx: Context<{ key: Key }>): Promise<boolean> {
+      const params = ctx.params;
+      const { key } = params;
+      return await this.adapter.delete(key);
     },
   },
 
