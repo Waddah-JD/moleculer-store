@@ -14,6 +14,10 @@ class BaseAdapter {
     throw new Error("'disconnect' method must be overriden by adapter");
   }
 
+  exists(key: Key): boolean {
+    throw new Error("'exists' method must be overriden by adapter");
+  }
+
   get(key) {
     throw new Error("'get' method must be overriden by adapter");
   }

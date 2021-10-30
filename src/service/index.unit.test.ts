@@ -87,7 +87,7 @@ describe("Service Mixin", () => {
       }
     });
 
-    it("should call the get method and return the found value", async () => {
+    it("should call the set method and return the found value", async () => {
       const mockedSetFn = jest.fn(async () => 6);
       service.set = mockedSetFn;
 
@@ -95,6 +95,42 @@ describe("Service Mixin", () => {
       expect(foundDoc).toBe(6);
       expect(mockedSetFn).toBeCalledTimes(1);
       expect(mockedSetFn).toHaveBeenCalled();
+    });
+  });
+
+  describe("EXISTS", () => {
+    it("should throw a validation error if no param is passed", async () => {
+      try {
+        await broker.call("numbers.exists");
+      } catch (error) {
+        expect(error).toBeInstanceOf(ValidationError);
+      }
+    });
+
+    it("should throw a validation error if params is an empty object", async () => {
+      try {
+        await broker.call("numbers.exists", {});
+      } catch (error) {
+        expect(error).toBeInstanceOf(ValidationError);
+      }
+    });
+
+    it("should throw a validation error if no param 'key' is passed", async () => {
+      try {
+        await broker.call("numbers.exists", { keyz: "no" });
+      } catch (error) {
+        expect(error).toBeInstanceOf(ValidationError);
+      }
+    });
+
+    it("should call the exists method and return a boolean", async () => {
+      const mockedExistsFn = jest.fn(async () => true);
+      service.exists = mockedExistsFn;
+
+      const foundDoc = await broker.call("numbers.exists", { key: "current_count" });
+      expect(foundDoc).toBe(true);
+      expect(mockedExistsFn).toBeCalledTimes(1);
+      expect(mockedExistsFn).toHaveBeenCalled();
     });
   });
 });

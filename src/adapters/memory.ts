@@ -18,6 +18,10 @@ class MemoryAdapter extends BaseAdapter {
     this.store = null;
   }
 
+  exists(key: Key): boolean {
+    return this.store.has(key);
+  }
+
   get(key: Key): Value {
     return this.store.get(key);
   }

@@ -10,6 +10,13 @@ export default {
   adapter: null,
 
   actions: {
+    exists: {
+      params: { key: keySchema },
+      async handler(ctx: Context<{ key: Key }>): Promise<Value> {
+        return await this.exists(ctx);
+      },
+    },
+
     get: {
       params: { key: keySchema },
       async handler(ctx: Context<{ key: Key }>): Promise<Value> {
@@ -32,6 +39,12 @@ export default {
 
     async disconnect(): Promise<void> {
       return await this.adapter.disconnect();
+    },
+
+    async exists(ctx: Context<{ key: Key }>): Promise<void> {
+      const params = ctx.params;
+      const { key } = params;
+      return await this.adapter.exists(key);
     },
 
     async get(ctx: Context<{ key: Key }>): Promise<void> {
