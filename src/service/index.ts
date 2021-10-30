@@ -18,6 +18,7 @@ export default {
     },
 
     get: {
+      rest: "GET /:key",
       params: { key: keySchema },
       async handler(ctx: Context<{ key: Key }>): Promise<Value> {
         return await this.get(ctx);
@@ -25,6 +26,7 @@ export default {
     },
 
     set: {
+      rest: "POST /:key",
       params: { key: keySchema },
       async handler(ctx: Context<{ key: Key; value: Value }>): Promise<Value> {
         return await this.set(ctx);
@@ -32,6 +34,7 @@ export default {
     },
 
     update: {
+      rest: "PUT /:key",
       params: { key: keySchema },
       async handler(ctx: Context<{ key: Key; value: Value }>): Promise<Value> {
         return await this.update(ctx);
@@ -39,6 +42,7 @@ export default {
     },
 
     delete: {
+      rest: "DELETE /:key",
       params: { key: keySchema },
       async handler(ctx: Context<{ key: Key }>): Promise<boolean> {
         return await this.delete(ctx);
@@ -58,6 +62,7 @@ export default {
     },
 
     clear: {
+      rest: "DELETE /",
       async handler(): Promise<void> {
         return await this.clear();
       },
