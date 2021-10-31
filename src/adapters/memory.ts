@@ -33,7 +33,7 @@ class MemoryAdapter extends BaseAdapter {
   }
 
   async update(key: Key, value: Value): Promise<Value> {
-    if (!this.exists(key)) throw new NonExistingKeyError(key);
+    if (!(await this.exists(key))) throw new NonExistingKeyError(key);
 
     return this.set(key, value);
   }

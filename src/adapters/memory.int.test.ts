@@ -71,12 +71,12 @@ describe("Memory Adapter", () => {
 
   it("should show all existing keys", async () => {
     const keys = await adapter.keys();
-    expect(keys).toStrictEqual(["totally_new_key", "non_existing_key"]);
+    expect(keys).toStrictEqual(["totally_new_key"]);
   });
 
   it("should show all existing values", async () => {
     const vals = await adapter.values();
-    expect(vals).toStrictEqual(["value_1", "value"]);
+    expect(vals).toStrictEqual(["value_1"]);
   });
 
   it("should clear store deleting all keys and values", async () => {
