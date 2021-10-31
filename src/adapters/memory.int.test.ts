@@ -22,16 +22,16 @@ describe("Memory Adapter", () => {
     const totallyNew = await adapter.set("totally_new_key", "value_1");
     expect(totallyNew).toBe("value_1");
 
-    const foundTotallyNew = await adapter.get("totally_new_key");
-    expect(foundTotallyNew).toBe("value_1");
+    const retrievedTotallyNew = await adapter.get("totally_new_key");
+    expect(retrievedTotallyNew).toBe("value_1");
   });
 
   it("should override the value for an existing key and return set value", async () => {
     const overridenVal = await adapter.set("an_existing_key", "value_2");
     expect(overridenVal).toBe("value_2");
 
-    const foundOverridenVal = await adapter.get("an_existing_key");
-    expect(foundOverridenVal).toBe("value_2");
+    const retrievedOverridenVal = await adapter.get("an_existing_key");
+    expect(retrievedOverridenVal).toBe("value_2");
   });
 
   it("should return undefined for a non-existing key", async () => {
