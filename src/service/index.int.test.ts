@@ -4,11 +4,6 @@ import serviceMixin from "./index";
 import MemoryAdapter from "../adapters/memory";
 import { NonExistingKeyError } from "../errors/memoryAdapter";
 
-const adapter = new MemoryAdapter();
-
-beforeAll(() => adapter.connect());
-afterAll(() => adapter.disconnect());
-
 describe("Service with a memory adapter", () => {
   describe("Action calls", () => {
     const broker = new ServiceBroker({ logger: false });
@@ -51,16 +46,6 @@ describe("Service with a memory adapter", () => {
       expect(newValue).toEqual(6);
     });
 
-    it("should throw a NonExistingKeyError while trying to update a value of a non-existing key", async () => {
-      try {
-        await broker.call("numbers.update", { key: "previousCount", value: 6 });
-      } catch (error) {
-        expect(error).toBeInstanceOf(NonExistingKeyError);
-        expect(error.name).toEqual("NonExistingKeyError");
-        expect(error.message).toEqual("key 'previousCount' doesn't exist");
-      }
-    });
-
     it("should return all keys after calling the keys action", async () => {
       const existingKeys = await broker.call("numbers.keys");
       expect(existingKeys).toStrictEqual(["currentCount"]);
@@ -79,6 +64,15 @@ describe("Service with a memory adapter", () => {
       expect(doesNotExistAnyMore).toBeUndefined();
     });
 
+    it("should throw a NonExistingKeyError while trying to update a value of a non-existing key", async () => {
+      try {
+        await broker.call("numbers.update", { key: "previousCount", value: 6 });
+      } catch (error) {
+        expect(error).toBeInstanceOf(NonExistingKeyError);
+        expect(error.name).toEqual("NonExistingKeyError");
+        expect(error.message).toEqual("key 'previousCount' doesn't exist");
+      }
+    });
     it("should return false while trying to delte a key that doesn't exist", async () => {
       const deleteIsSuccessful = await broker.call("numbers.delete", { key: "currentCount" });
       expect(deleteIsSuccessful).toEqual(false);
@@ -87,11 +81,14 @@ describe("Service with a memory adapter", () => {
     it("should return undefined after clearing keys and values", async () => {
       const newValue = await broker.call("numbers.set", { key: "newKey", value: "newValue" });
       expect(newValue).toBe("newValue");
+
       const clearResult = await broker.call("numbers.clear");
       expect(clearResult).toBeUndefined();
+
       const existingKeys = await broker.call("numbers.keys");
-      const existingValues = await broker.call("numbers.values");
       expect(existingKeys).toStrictEqual([]);
+
+      const existingValues = await broker.call("numbers.values");
       expect(existingValues).toStrictEqual([]);
     });
   });

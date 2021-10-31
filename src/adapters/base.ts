@@ -6,43 +6,43 @@ class BaseAdapter {
     throw new Error("'init' method must be overriden by adapter");
   }
 
-  connect() {
+  async connect() {
     throw new Error("'connect' method must be overriden by adapter");
   }
 
-  disconnect() {
+  async disconnect() {
     throw new Error("'disconnect' method must be overriden by adapter");
   }
 
-  exists(key: Key): boolean {
+  async exists(key: Key): Promise<boolean> {
     throw new Error("'exists' method must be overriden by adapter");
   }
 
-  get(key) {
+  async get(key): Promise<Value> {
     throw new Error("'get' method must be overriden by adapter");
   }
 
-  set(key, value) {
+  async set(key, value): Promise<Value> {
     throw new Error("'get' method must be overriden by adapter");
   }
 
-  update(key, value) {
+  async update(key, value): Promise<Value> {
     throw new Error("'update' method must be overriden by adapter");
   }
 
-  delete(key) {
+  async delete(key): Promise<boolean> {
     throw new Error("'delete' method must be overriden by adapter");
   }
 
-  keys() {
+  async keys(): Promise<Key[]> {
     throw new Error("'keys' method must be overriden by adapter");
   }
 
-  values() {
+  async values(): Promise<Value[]> {
     throw new Error("'values' method must be overriden by adapter");
   }
 
-  clear() {
+  async clear(): Promise<void> {
     throw new Error("'clear' method must be overriden by adapter");
   }
 }

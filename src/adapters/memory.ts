@@ -11,46 +11,46 @@ class MemoryAdapter extends BaseAdapter {
     this.service = service;
   }
 
-  connect(): void {
+  async connect(): Promise<void> {
     this.store = new Map();
   }
 
-  disconnect(): void {
+  async disconnect(): Promise<void> {
     this.store = null;
   }
 
-  exists(key: Key): boolean {
+  async exists(key: Key): Promise<boolean> {
     return this.store.has(key);
   }
 
-  get(key: Key): Value {
+  async get(key: Key): Promise<Value> {
     return this.store.get(key);
   }
 
-  set(key: Key, value: Value): Value {
+  async set(key: Key, value: Value): Promise<Value> {
     this.store.set(key, value);
     return value;
   }
 
-  update(key: Key, value: Value): Value {
+  async update(key: Key, value: Value): Promise<Value> {
     if (!this.exists(key)) throw new NonExistingKeyError(key);
 
     return this.set(key, value);
   }
 
-  delete(key: Key): boolean {
+  async delete(key: Key): Promise<boolean> {
     return this.store.delete(key);
   }
 
-  keys(): Key[] {
+  async keys(): Promise<Key[]> {
     return Array.from(this.store.keys());
   }
 
-  values(): Value[] {
+  async values(): Promise<Value[]> {
     return Array.from(this.store.values());
   }
 
-  clear(): void {
+  async clear(): Promise<void> {
     return this.store.clear();
   }
 }

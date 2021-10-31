@@ -1,65 +1,92 @@
 import MemoryAdapter from "./memory";
 import { NonExistingKeyError } from "../errors/memoryAdapter";
 
-const adapter = new MemoryAdapter();
-
-beforeAll(() => adapter.connect());
-afterAll(() => adapter.disconnect());
-
 describe("Memory Adapter", () => {
-  it("should return false for non-existing key", () => {
-    expect(adapter.exists("non_existing_key")).toBe(false);
+  const adapter = new MemoryAdapter();
+
+  beforeAll(() => adapter.connect());
+  afterAll(() => adapter.disconnect());
+
+  it("should return false for non-existing key", async () => {
+    const valueExists = await adapter.exists("non_existing_key");
+    expect(valueExists).toBe(false);
   });
 
-  it("should return true for an existing key", () => {
-    adapter.set("an_existing_key", "some_value");
-    expect(adapter.exists("an_existing_key")).toBe(true);
+  it("should return true for an existing key", async () => {
+    await adapter.set("an_existing_key", "some_value");
+    const valueExists = await adapter.exists("an_existing_key");
+    expect(valueExists).toBe(true);
   });
 
-  it("should set a new value for an existing key and return set value", () => {
-    expect(adapter.set("totally_new_key", "value_1")).toBe("value_1");
-    expect(adapter.get("totally_new_key")).toBe("value_1");
+  it("should set a new value for an existing key and return set value", async () => {
+    const totallyNew = await adapter.set("totally_new_key", "value_1");
+    expect(totallyNew).toBe("value_1");
+
+    const foundTotallyNew = await adapter.get("totally_new_key");
+    expect(foundTotallyNew).toBe("value_1");
   });
 
-  it("should override the value for an existing key and return set value", () => {
-    expect(adapter.set("an_existing_key", "value_2")).toBe("value_2");
-    expect(adapter.get("an_existing_key")).toBe("value_2");
+  it("should override the value for an existing key and return set value", async () => {
+    const overridenVal = await adapter.set("an_existing_key", "value_2");
+    expect(overridenVal).toBe("value_2");
+
+    const foundOverridenVal = await adapter.get("an_existing_key");
+    expect(foundOverridenVal).toBe("value_2");
   });
 
-  it("should return undefined for a non-existing key", () => {
-    expect(adapter.get("non_existing_key")).toBe(undefined);
+  it("should return undefined for a non-existing key", async () => {
+    const nonExisting = await adapter.get("non_existing_key");
+    expect(nonExisting).toBe(undefined);
   });
 
-  it("should throw an error while trying to update a key that doesn't exist", () => {
-    expect(() => adapter.update("non_existing_key", "value")).toThrow(NonExistingKeyError);
-    expect(() => adapter.update("non_existing_key", "value")).toThrow("key 'non_existing_key' doesn't exist");
+  it("should throw an error while trying to update a key that doesn't exist", async () => {
+    try {
+      await adapter.update("non_existing_key", "value");
+    } catch (error) {
+      expect(error).toBeInstanceOf(NonExistingKeyError);
+      expect(error.message).toBe("key 'non_existing_key' doesn't exist");
+    }
   });
 
-  it("should update a value of a key that exists", () => {
-    expect(adapter.update("an_existing_key", "value_3")).toBe("value_3");
-    expect(adapter.get("an_existing_key")).toBe("value_3");
+  it("should update a value of a key that exists", async () => {
+    const updatedVal = await adapter.update("an_existing_key", "value_3");
+    expect(updatedVal).toBe("value_3");
+
+    const retrievedVal = await adapter.get("an_existing_key");
+    expect(retrievedVal).toBe("value_3");
   });
 
-  it("should delete a value of a key that exists and return true", () => {
-    expect(adapter.delete("an_existing_key")).toBe(true);
-    expect(adapter.get("an_existing_key")).toBeUndefined();
+  it("should delete a value of a key that exists and return true", async () => {
+    const deleteWasSuccessfull = await adapter.delete("an_existing_key");
+    expect(deleteWasSuccessfull).toBe(true);
+
+    const retrievedVal = await adapter.get("an_existing_key");
+    expect(retrievedVal).toBeUndefined();
   });
 
-  it("should return false while after trying to delte a key that doesn't exist", () => {
-    expect(adapter.delete("whatever")).toBe(false);
+  it("should return false while after trying to delte a key that doesn't exist", async () => {
+    const deleteWasSuccessfull = await adapter.delete("whatever");
+    expect(deleteWasSuccessfull).toBe(false);
   });
 
-  it("should show all existing keys", () => {
-    expect(adapter.keys()).toStrictEqual(["totally_new_key"]);
+  it("should show all existing keys", async () => {
+    const keys = await adapter.keys();
+    expect(keys).toStrictEqual(["totally_new_key", "non_existing_key"]);
   });
 
-  it("should show all existing values", () => {
-    expect(adapter.values()).toStrictEqual(["value_1"]);
+  it("should show all existing values", async () => {
+    const vals = await adapter.values();
+    expect(vals).toStrictEqual(["value_1", "value"]);
   });
 
-  it("should clear store deleting all keys and values", () => {
-    expect(adapter.clear()).toBeUndefined();
-    expect(adapter.keys()).toStrictEqual([]);
-    expect(adapter.values()).toStrictEqual([]);
+  it("should clear store deleting all keys and values", async () => {
+    const clearReturn = await adapter.clear();
+    expect(clearReturn).toBeUndefined();
+
+    const keys = await adapter.keys();
+    expect(keys).toStrictEqual([]);
+
+    const vals = await adapter.values();
+    expect(vals).toStrictEqual([]);
   });
 });
