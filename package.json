@@ -9,7 +9,8 @@
     "build": "tsc",
     "build:watch": "tsc -w",
     "precommit": "npm run lint && npm run prettify",
-    "prepublish": "npm run build",
+    "clean":"rm -rf build",
+    "prepublish": "npm run clean && npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:unit": "jest \"src/.*\\.unit\\.test\\.ts\"",
@@ -38,6 +39,7 @@
     "@babel/preset-typescript": "^7.16.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.9.1",
+    "@types/redis": "^2.8.32",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
     "eslint": "^7.32.0",
@@ -45,5 +47,8 @@
     "moleculer": "^0.14.17",
     "prettier": "^2.4.0",
     "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "redis": "^3.1.2"
   }
 }
