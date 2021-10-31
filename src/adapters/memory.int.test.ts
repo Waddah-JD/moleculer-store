@@ -1,5 +1,5 @@
 import MemoryAdapter from "./memory";
-import { NonExistingKeyError } from "../errors/memoryAdapter";
+import { NonExistingKeyError } from "../errors/";
 
 describe("Memory Adapter", () => {
   const adapter = new MemoryAdapter();

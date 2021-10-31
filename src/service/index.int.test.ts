@@ -2,7 +2,7 @@ import { ServiceBroker } from "moleculer";
 
 import serviceMixin from "./index";
 import MemoryAdapter from "../adapters/memory";
-import { NonExistingKeyError } from "../errors/memoryAdapter";
+import { NonExistingKeyError } from "../errors/";
 
 describe("Service with a memory adapter", () => {
   describe("Action calls", () => {

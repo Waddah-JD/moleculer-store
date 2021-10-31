@@ -1,7 +1,7 @@
 import { Service } from "moleculer";
 
 import BaseAdapter from "./base";
-import { NonExistingKeyError } from "../errors/memoryAdapter";
+import { NonExistingKeyError } from "../errors";
 
 class MemoryAdapter extends BaseAdapter {
   service: Service;
