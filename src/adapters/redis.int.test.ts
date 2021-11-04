@@ -97,4 +97,15 @@ describe("Redis Adapter", () => {
       false,
     ]);
   });
+
+  it("should delete all keys on calling 'clear'", async () => {
+    const clearReturn = await adapter.clear();
+    expect(clearReturn).toBeUndefined();
+
+    const keys = await adapter.keys();
+    expect(keys).toStrictEqual([]);
+
+    const vals = await adapter.values();
+    expect(vals).toStrictEqual([]);
+  });
 });
