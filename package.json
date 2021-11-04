@@ -1,6 +1,6 @@
 {
   "name": "moleculer-store",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Key-Value storage service for Moleculer microservices with a built-in memory and Redis adapter",
   "main": "build/index.js",
   "scripts": {
