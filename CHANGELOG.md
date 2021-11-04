@@ -1,3 +1,13 @@
+<a name="1.2.1"></a>
+
+# 1.2.1 (2021-11-04)
+
+## Changes
+
+- add support for different values of `string_numbers` Redis adapter option
+
+---
+
 <a name="1.2.0"></a>
 
 # 1.2.0 (2021-11-04)
