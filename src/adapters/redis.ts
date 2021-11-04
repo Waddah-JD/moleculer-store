@@ -11,6 +11,7 @@ interface PromisifiedRedisClient extends redis.RedisClient {
   existsAsync?: (k: string) => Promise<number>;
   getAsync?: (k: string) => Promise<string>;
   setAsync?: (k: string, v: string) => Promise<string>;
+  deleteAsync?: (k: string) => Promise<number>;
 }
 
 class RedisAdapter extends BaseAdapter {
@@ -48,6 +49,7 @@ class RedisAdapter extends BaseAdapter {
     this.store.existsAsync = promisify(this.store.exists).bind(this.store);
     this.store.getAsync = promisify(this.store.get).bind(this.store);
     this.store.setAsync = promisify(this.store.set).bind(this.store);
+    this.store.deleteAsync = promisify(this.store.del).bind(this.store);
   }
 
   async disconnect(): Promise<void> {
@@ -73,13 +75,15 @@ class RedisAdapter extends BaseAdapter {
     return v;
   }
 
-  async update(key: Key, value: Value): Promise<Value> {
-    if (!(await this.exists(key))) throw new NonExistingKeyError(key);
-    return this.set(key, value);
+  async update(k: Key, v: Value): Promise<Value> {
+    if (!(await this.exists(k))) throw new NonExistingKeyError(k);
+    return this.set(k, v);
   }
 
-  async delete(key: Key): Promise<boolean> {
-    // TODO implement me
+  async delete(k: Key): Promise<boolean> {
+    const key = this.serialize(k);
+    const deleteSucceeded = await this.store.deleteAsync(key);
+    return parseNumberRespnseToBool(deleteSucceeded);
   }
 
   async keys(): Promise<Key[]> {

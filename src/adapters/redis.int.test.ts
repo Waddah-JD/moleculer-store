@@ -73,4 +73,14 @@ describe("Redis Adapter", () => {
     const retrievedNum = await adapter.get("numKey");
     expect(retrievedNum).toBe(51);
   });
+
+  it("should try to delete an entry and return true if key exists", async () => {
+    const deleteSucceeded = await adapter.delete("numKey");
+    expect(deleteSucceeded).toBe(true);
+  });
+
+  it("should try to delete an entry and return false if key doesn't exist", async () => {
+    const deleteSucceeded = await adapter.delete("numKey");
+    expect(deleteSucceeded).toBe(false);
+  });
 });
