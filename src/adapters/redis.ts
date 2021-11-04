@@ -93,7 +93,12 @@ class RedisAdapter extends BaseAdapter {
   }
 
   async values(): Promise<Value[]> {
-    // TODO implement me
+    const keys = await this.keys();
+    const values = [];
+    for (const k of keys) {
+      values.push(await this.get(k));
+    }
+    return values;
   }
 
   async clear(): Promise<void> {

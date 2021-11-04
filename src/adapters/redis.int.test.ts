@@ -88,4 +88,13 @@ describe("Redis Adapter", () => {
     const keys = await adapter.keys();
     expect(keys).toStrictEqual(["strKey", "objKey", "boolKey"]);
   });
+
+  it("should return all values", async () => {
+    const keys = await adapter.values();
+    expect(keys).toStrictEqual([
+      "I'm the new string",
+      { bool: true, nested: { OK: "yes" }, num: 3, str: "string" },
+      false,
+    ]);
+  });
 });
