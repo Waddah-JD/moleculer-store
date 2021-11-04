@@ -1,3 +1,3 @@
-export const parseNumberRespnseToBool = (n: number): boolean => {
+export const parseNumericRedisRespnseToBool = (n: number): boolean => {
   return !!n;
 };

@@ -1,11 +1,11 @@
-import { parseNumberRespnseToBool } from "./redis";
+import { parseNumericRedisRespnseToBool } from "./redis";
 
-describe("parseNumberRespnseToBool", () => {
+describe("parseNumericRedisRespnseToBool", () => {
   it("should return true for 1", () => {
-    expect(parseNumberRespnseToBool(1)).toBe(true);
+    expect(parseNumericRedisRespnseToBool(1)).toBe(true);
   });
 
   it("should return true for 0", () => {
-    expect(parseNumberRespnseToBool(0)).toBe(false);
+    expect(parseNumericRedisRespnseToBool(0)).toBe(false);
   });
 });

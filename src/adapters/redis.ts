@@ -5,7 +5,7 @@ import redis from "redis";
 import BaseAdapter from "./base";
 import { InvalidValueType, NonExistingKeyError } from "../errors";
 import { isNumber, isBoolean, isStringifiedJSON } from "../utils/isType";
-import { parseNumberRespnseToBool } from "../utils/redis";
+import { parseNumericRedisRespnseToBool } from "../utils/redis";
 
 interface PromisifiedRedisClient extends redis.RedisClient {
   existsAsync?: (k: string) => Promise<number>;
@@ -59,7 +59,7 @@ class RedisAdapter extends BaseAdapter {
   async exists(k: Key): Promise<boolean> {
     const key = this.serialize(k);
     const keyExists = await this.store.existsAsync(key);
-    return parseNumberRespnseToBool(keyExists);
+    return parseNumericRedisRespnseToBool(keyExists);
   }
 
   async get(k: Key): Promise<Value> {
@@ -83,7 +83,7 @@ class RedisAdapter extends BaseAdapter {
   async delete(k: Key): Promise<boolean> {
     const key = this.serialize(k);
     const deleteSucceeded = await this.store.deleteAsync(key);
-    return parseNumberRespnseToBool(deleteSucceeded);
+    return parseNumericRedisRespnseToBool(deleteSucceeded);
   }
 
   async keys(): Promise<Key[]> {
