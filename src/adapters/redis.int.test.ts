@@ -83,4 +83,9 @@ describe("Redis Adapter", () => {
     const deleteSucceeded = await adapter.delete("numKey");
     expect(deleteSucceeded).toBe(false);
   });
+
+  it("should return all keys", async () => {
+    const keys = await adapter.keys();
+    expect(keys).toStrictEqual(["strKey", "objKey", "boolKey"]);
+  });
 });
