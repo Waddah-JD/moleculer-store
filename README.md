@@ -39,13 +39,27 @@ broker
 | Action |     REST     | parameters |      returns       | description                                                                                                        |
 | :----: | :----------: | :--------: | :----------------: | ------------------------------------------------------------------------------------------------------------------ |
 |  get   |  GET /:key   |    key     | value \| undefined | finds a value by key, returns undefined if no matching key is found                                                |
-|  set   |  POST /:key  | key, value |       value        | sets and returns a value for existing and non-existing keys                                                        |
+|  set   |  POST /:key  | key, value |       value        | sets and returns a value for existing and non-existing keys (think of it as an 'UPSERT' operation)                 |
 | update |  PUT /:key   | key, value |     key, value     | sets and returns a value for ONLY existing keys, throws an error if key doesn't exist                              |
 | delete | DELETE /:key |    key     |      boolean       | deletes a single entry; returns a true if delete was successful (there is a matching key), otherwise retruns false |
 | exists |              |    key     |      boolean       | checks if a key exists in a map                                                                                    |
 |  keys  |              |            |       key []       | returns a list of found keys                                                                                       |
 | values |              |            |      value []      | returns a list of found values                                                                                     |
 | clear  |   DELETE /   |            |        void        | clears a map                                                                                                       |
+
+## Usage with Redis adapter
+
+```js
+const { RedisAdapter } = Adapters;
+
+broker.createService({
+  adapter: new RedisAdapter(), // same as calling `new RedisAdapter({host: "127.0.0.1", port: 6379})`
+  mixins: [serviceMixin],
+  // .. other options
+});
+```
+
+`RedisAdapter` takes the same options as the used Node Redis client, for more information, check out [Redis client documentation](https://www.npmjs.com/package/redis)
 
 ## License
 
