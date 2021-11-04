@@ -8,10 +8,10 @@ import { isNumber, isBoolean, isStringifiedJSON } from "../utils/isType";
 import { parseNumericRedisRespnseToBool } from "../utils/redis";
 
 interface PromisifiedRedisClient extends redis.RedisClient {
-  existsAsync?: (k: string) => Promise<number>;
+  existsAsync?: (k: string) => Promise<number | string>;
   getAsync?: (k: string) => Promise<string>;
   setAsync?: (k: string, v: string) => Promise<string>;
-  deleteAsync?: (k: string) => Promise<number>;
+  deleteAsync?: (k: string) => Promise<number | string>;
   keysAsync?: (k: string) => Promise<string[]>;
   clearAsync?: () => Promise<boolean>;
 }

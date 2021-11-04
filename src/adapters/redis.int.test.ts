@@ -86,16 +86,20 @@ describe("Redis Adapter", () => {
 
   it("should return all keys", async () => {
     const keys = await adapter.keys();
-    expect(keys).toStrictEqual(["strKey", "objKey", "boolKey"]);
+    expect(keys.length).toBe(3);
+    expect(keys).toEqual(expect.arrayContaining(["strKey", "objKey", "boolKey"]));
   });
 
   it("should return all values", async () => {
-    const keys = await adapter.values();
-    expect(keys).toStrictEqual([
-      "I'm the new string",
-      { bool: true, nested: { OK: "yes" }, num: 3, str: "string" },
-      false,
-    ]);
+    const values = await adapter.values();
+    expect(values.length).toBe(3);
+    expect(values).toEqual(
+      expect.arrayContaining([
+        "I'm the new string",
+        { bool: true, nested: { OK: "yes" }, num: 3, str: "string" },
+        false,
+      ])
+    );
   });
 
   it("should delete all keys on calling 'clear'", async () => {
