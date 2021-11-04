@@ -19,6 +19,12 @@ interface PromisifiedRedisClient extends redis.RedisClient {
 class RedisAdapter extends BaseAdapter {
   service: Service;
   store: PromisifiedRedisClient;
+  opts?: redis.ClientOpts;
+
+  constructor(opts?: redis.ClientOpts) {
+    super();
+    this.opts = opts;
+  }
 
   serialize(value: Value): string {
     switch (typeof value) {
@@ -47,7 +53,7 @@ class RedisAdapter extends BaseAdapter {
   }
 
   async connect(): Promise<void> {
-    this.store = redis.createClient(6379, "127.0.0.1");
+    this.store = redis.createClient(this.opts);
     this.store.existsAsync = promisify(this.store.exists).bind(this.store);
     this.store.getAsync = promisify(this.store.get).bind(this.store);
     this.store.setAsync = promisify(this.store.set).bind(this.store);
