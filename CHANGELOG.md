@@ -1,3 +1,13 @@
+<a name="1.3.0"></a>
+
+# 1.3.0 (2021-11-05)
+
+## Changes
+
+- add pattern matching for keys and values methods
+
+---
+
 <a name="1.2.1"></a>
 
 # 1.2.1 (2021-11-04)
