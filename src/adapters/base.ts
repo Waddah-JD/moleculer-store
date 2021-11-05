@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { Service } from "moleculer";
+
 class BaseAdapter {
-  init(service) {
+  init(service: Service) {
     throw new Error("'init' method must be overriden by adapter");
   }
 
@@ -18,27 +20,27 @@ class BaseAdapter {
     throw new Error("'exists' method must be overriden by adapter");
   }
 
-  async get(key): Promise<Value> {
+  async get(key: Key): Promise<Value> {
     throw new Error("'get' method must be overriden by adapter");
   }
 
-  async set(key, value): Promise<Value> {
+  async set(key: Key, value: Value): Promise<Value> {
     throw new Error("'get' method must be overriden by adapter");
   }
 
-  async update(key, value): Promise<Value> {
+  async update(key: Key, value: Value): Promise<Value> {
     throw new Error("'update' method must be overriden by adapter");
   }
 
-  async delete(key): Promise<boolean> {
+  async delete(key: Key): Promise<boolean> {
     throw new Error("'delete' method must be overriden by adapter");
   }
 
-  async keys(): Promise<Key[]> {
+  async keys(pattern = "*"): Promise<Key[]> {
     throw new Error("'keys' method must be overriden by adapter");
   }
 
-  async values(): Promise<Value[]> {
+  async values(pattern = "*"): Promise<Value[]> {
     throw new Error("'values' method must be overriden by adapter");
   }
 
