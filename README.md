@@ -2,7 +2,7 @@
 
 # moleculer-store [![NPM version](https://img.shields.io/npm/v/moleculer-store.svg)](https://www.npmjs.com/package/moleculer-store)
 
-Moleculer Key-Value store, with a built-in memory adapter
+Moleculer Key-Value store, with built-in memory and Redis adapters
 
 ## Install
 
