@@ -19,10 +19,10 @@ describe("Memory Adapter", () => {
   });
 
   it("should set a new value for an existing key and return set value", async () => {
-    const totallyNew = await adapter.set("totally_new_key", "value_1");
+    const totallyNew = await adapter.set("a_totally_new_key", "value_1");
     expect(totallyNew).toBe("value_1");
 
-    const retrievedTotallyNew = await adapter.get("totally_new_key");
+    const retrievedTotallyNew = await adapter.get("a_totally_new_key");
     expect(retrievedTotallyNew).toBe("value_1");
   });
 
@@ -69,14 +69,30 @@ describe("Memory Adapter", () => {
     expect(deleteWasSuccessfull).toBe(false);
   });
 
-  it("should show all existing keys", async () => {
+  it("should show all existing keys if no pattern is passed", async () => {
+    await adapter.set("another_key", "another value");
+    await adapter.set("another one", "bites the dust");
     const keys = await adapter.keys();
-    expect(keys).toStrictEqual(["totally_new_key"]);
+    expect(keys.length).toEqual(3);
+    expect(keys).toEqual(expect.arrayContaining(["another_key", "another one", "a_totally_new_key"]));
   });
 
-  it("should show all existing values", async () => {
+  it("should return only keys that match passed pattern", async () => {
+    const keys = await adapter.keys("a*key");
+    expect(keys.length).toEqual(2);
+    expect(keys).toEqual(expect.arrayContaining(["another_key", "a_totally_new_key"]));
+  });
+
+  it("should show all existing values if no pattern is passed", async () => {
     const vals = await adapter.values();
-    expect(vals).toStrictEqual(["value_1"]);
+    expect(vals.length).toEqual(3);
+    expect(vals).toEqual(expect.arrayContaining(["another value", "value_1", "bites the dust"]));
+  });
+
+  it("should return only values which keys match passed pattern", async () => {
+    const keys = await adapter.values("a*key");
+    expect(keys.length).toEqual(2);
+    expect(keys).toEqual(expect.arrayContaining(["another value", "value_1"]));
   });
 
   it("should clear store deleting all keys and values", async () => {

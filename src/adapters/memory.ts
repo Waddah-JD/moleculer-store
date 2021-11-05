@@ -2,6 +2,7 @@ import { Service } from "moleculer";
 
 import BaseAdapter from "./base";
 import { NonExistingKeyError } from "../errors";
+import { createRegExpFromGlobPattern } from "../utils/regex";
 
 class MemoryAdapter extends BaseAdapter {
   service: Service;
@@ -42,12 +43,19 @@ class MemoryAdapter extends BaseAdapter {
     return this.store.delete(key);
   }
 
-  async keys(): Promise<Key[]> {
-    return Array.from(this.store.keys());
+  async keys(pattern = "*"): Promise<Key[]> {
+    const regExp = createRegExpFromGlobPattern(pattern);
+
+    return Array.from(this.store.keys()).filter((k) => regExp.test(`${k}`));
   }
 
-  async values(): Promise<Value[]> {
-    return Array.from(this.store.values());
+  async values(pattern = "*"): Promise<Value[]> {
+    const matchedKeys = await this.keys(pattern);
+    const values = [];
+    for (const k of matchedKeys) {
+      values.push(await this.get(k));
+    }
+    return values;
   }
 
   async clear(): Promise<void> {
