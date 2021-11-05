@@ -52,16 +52,14 @@ export default {
     keys: {
       params: { pattern: patternSchema },
       async handler(ctx: Context<{ pattern?: string }>): Promise<Key[]> {
-        const { params } = ctx;
-        return await this.keys(params.pattern);
+        return await this.keys(ctx);
       },
     },
 
     values: {
       params: { pattern: patternSchema },
       async handler(ctx: Context<{ pattern?: string }>): Promise<Value[]> {
-        const { params } = ctx;
-        return await this.values(params.pattern);
+        return await this.values(ctx);
       },
     },
 
@@ -112,12 +110,14 @@ export default {
       return await this.adapter.delete(key);
     },
 
-    async keys(pattern?: string): Promise<Key[]> {
-      return await this.adapter.keys(pattern);
+    async keys(ctx: Context<{ pattern?: string }>): Promise<Key[]> {
+      const { params } = ctx;
+      return await this.adapter.keys(params.pattern);
     },
 
-    async values(pattern?: string): Promise<Value[]> {
-      return await this.adapter.values(pattern);
+    async values(ctx: Context<{ pattern?: string }>): Promise<Value[]> {
+      const { params } = ctx;
+      return await this.adapter.values(params.pattern);
     },
 
     async clear(): Promise<void> {
