@@ -18,6 +18,7 @@ describe("Redis Adapter", () => {
       expect(adapter.keys).toBeInstanceOf(Function);
       expect(adapter.values).toBeInstanceOf(Function);
       expect(adapter.clear).toBeInstanceOf(Function);
+      expect(adapter.size).toBeInstanceOf(Function);
       expect(adapter.serialize).toBeInstanceOf(Function);
       expect(adapter.deserialize).toBeInstanceOf(Function);
     });

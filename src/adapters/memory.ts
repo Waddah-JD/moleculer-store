@@ -61,6 +61,10 @@ class MemoryAdapter extends BaseAdapter {
   async clear(): Promise<void> {
     return this.store.clear();
   }
+
+  async size(): Promise<number> {
+    return this.store.size;
+  }
 }
 
 export default MemoryAdapter;

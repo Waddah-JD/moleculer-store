@@ -95,6 +95,11 @@ describe("Memory Adapter", () => {
     expect(keys).toEqual(expect.arrayContaining(["another value", "value_1"]));
   });
 
+  it("should return size of store", async () => {
+    const size = await adapter.size();
+    expect(size).toEqual(3);
+  });
+
   it("should clear store deleting all keys and values", async () => {
     const clearReturn = await adapter.clear();
     expect(clearReturn).toBeUndefined();
@@ -104,5 +109,8 @@ describe("Memory Adapter", () => {
 
     const vals = await adapter.values();
     expect(vals).toStrictEqual([]);
+
+    const size = await adapter.size();
+    expect(size).toEqual(0);
   });
 });

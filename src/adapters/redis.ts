@@ -14,6 +14,7 @@ interface PromisifiedRedisClient extends redis.RedisClient {
   deleteAsync?: (k: string) => Promise<number | string>;
   keysAsync?: (k: string) => Promise<string[]>;
   clearAsync?: () => Promise<boolean>;
+  sizeAsync?: () => Promise<number>;
 }
 
 class RedisAdapter extends BaseAdapter {
@@ -60,6 +61,7 @@ class RedisAdapter extends BaseAdapter {
     this.store.deleteAsync = promisify(this.store.del).bind(this.store);
     this.store.keysAsync = promisify(this.store.keys).bind(this.store);
     this.store.clearAsync = promisify(this.store.flushdb).bind(this.store);
+    this.store.sizeAsync = promisify(this.store.dbsize).bind(this.store);
   }
 
   async disconnect(): Promise<void> {
@@ -111,6 +113,10 @@ class RedisAdapter extends BaseAdapter {
 
   async clear(): Promise<void> {
     await this.store.clearAsync();
+  }
+
+  async size(): Promise<number> {
+    return await this.store.sizeAsync();
   }
 }
 

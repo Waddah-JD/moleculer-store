@@ -47,6 +47,10 @@ class BaseAdapter {
   async clear(): Promise<void> {
     throw new Error("'clear' method must be overriden by adapter");
   }
+
+  async size(): Promise<number> {
+    throw new Error("'size' method must be overriden by adapter");
+  }
 }
 
 export default BaseAdapter;

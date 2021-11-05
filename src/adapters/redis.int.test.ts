@@ -116,6 +116,11 @@ describe("Redis Adapter", () => {
     expect(keys).toEqual(expect.arrayContaining(["I'm the new string", "just for test"]));
   });
 
+  it("should return size of store", async () => {
+    const size = await adapter.size();
+    expect(size).toEqual(4);
+  });
+
   it("should delete all keys on calling 'clear'", async () => {
     const clearReturn = await adapter.clear();
     expect(clearReturn).toBeUndefined();
@@ -125,5 +130,8 @@ describe("Redis Adapter", () => {
 
     const vals = await adapter.values();
     expect(vals).toStrictEqual([]);
+
+    const size = await adapter.size();
+    expect(size).toEqual(0);
   });
 });
