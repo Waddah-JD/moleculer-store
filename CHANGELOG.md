@@ -1,3 +1,14 @@
+<a name="1.4.0"></a>
+
+# 1.4.0 (2021-11-05)
+
+## Changes
+
+- add `size` service action and adapter methods
+- allow patterns on service `keys` and `values` actions
+
+---
+
 <a name="1.3.0"></a>
 
 # 1.3.0 (2021-11-05)

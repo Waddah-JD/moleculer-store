@@ -46,6 +46,7 @@ broker
 |  keys  |              |  pattern?  |       key []       | returns a list of found keys, takes an optional pattern to match keys by (pattern defaults to '\*')                |
 | values |              |  pattern?  |      value []      | returns a list of found values, takes an optional pattern to match keys' values by (pattern defaults to '\*')      |
 | clear  |   DELETE /   |            |        void        | clears a map                                                                                                       |
+|  size  |              |            |       number       | returns size of store                                                                                              |
 
 ```ts
 key: string | number;
