@@ -65,8 +65,14 @@ export default {
 
     clear: {
       rest: "DELETE /",
-      async handler(): Promise<void> {
-        return await this.clear();
+      async handler(ctx: Context): Promise<void> {
+        return await this.clear(ctx);
+      },
+    },
+
+    size: {
+      async handler(ctx: Context): Promise<number> {
+        return await this.size(ctx);
       },
     },
   },
@@ -122,6 +128,10 @@ export default {
 
     async clear(): Promise<void> {
       return await this.adapter.clear();
+    },
+
+    async size(): Promise<number> {
+      return await this.adapter.size();
     },
   },
 
