@@ -84,22 +84,36 @@ describe("Redis Adapter", () => {
     expect(deleteSucceeded).toBe(false);
   });
 
-  it("should return all keys", async () => {
+  it("should return all keys if no pattern is passed", async () => {
     const keys = await adapter.keys();
     expect(keys.length).toBe(3);
     expect(keys).toEqual(expect.arrayContaining(["strKey", "objKey", "boolKey"]));
   });
 
-  it("should return all values", async () => {
+  it("should return all keys  matching passed pattern", async () => {
+    await adapter.set("strThing", "just for test"); // adding a new key that starts with 'str'
+    const keys = await adapter.keys("str*");
+    expect(keys.length).toBe(2);
+    expect(keys).toEqual(expect.arrayContaining(["strKey", "strThing"]));
+  });
+
+  it("should return all values if no pattern is passed", async () => {
     const values = await adapter.values();
-    expect(values.length).toBe(3);
+    expect(values.length).toBe(4);
     expect(values).toEqual(
       expect.arrayContaining([
         "I'm the new string",
         { bool: true, nested: { OK: "yes" }, num: 3, str: "string" },
         false,
+        "just for test",
       ])
     );
+  });
+
+  it("should retun only values whose key mathc the passed pattern", async () => {
+    const keys = await adapter.values("str*");
+    expect(keys.length).toBe(2);
+    expect(keys).toEqual(expect.arrayContaining(["I'm the new string", "just for test"]));
   });
 
   it("should delete all keys on calling 'clear'", async () => {

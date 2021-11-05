@@ -96,14 +96,14 @@ class RedisAdapter extends BaseAdapter {
     return parseNumericRedisRespnseToBool(deleteSucceeded);
   }
 
-  async keys(): Promise<Key[]> {
-    return await this.store.keysAsync("*");
+  async keys(pattern = "*"): Promise<Key[]> {
+    return await this.store.keysAsync(pattern);
   }
 
-  async values(): Promise<Value[]> {
-    const keys = await this.keys();
+  async values(pattern = "*"): Promise<Value[]> {
+    const matchedKeys = await this.keys(pattern);
     const values = [];
-    for (const k of keys) {
+    for (const k of matchedKeys) {
       values.push(await this.get(k));
     }
     return values;
