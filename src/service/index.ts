@@ -2,7 +2,7 @@
 
 import { Context } from "moleculer";
 
-import { keySchema, valueSchema } from "./params";
+import { keySchema, valueSchema, patternSchema } from "./params";
 
 export default {
   name: "",
@@ -50,14 +50,18 @@ export default {
     },
 
     keys: {
-      async handler(): Promise<Key[]> {
-        return await this.keys();
+      params: { pattern: patternSchema },
+      async handler(ctx: Context<{ pattern?: string }>): Promise<Key[]> {
+        const { params } = ctx;
+        return await this.keys(params.pattern);
       },
     },
 
     values: {
-      async handler(): Promise<Value[]> {
-        return await this.values();
+      params: { pattern: patternSchema },
+      async handler(ctx: Context<{ pattern?: string }>): Promise<Value[]> {
+        const { params } = ctx;
+        return await this.values(params.pattern);
       },
     },
 
@@ -108,12 +112,12 @@ export default {
       return await this.adapter.delete(key);
     },
 
-    async keys(): Promise<Key[]> {
-      return await this.adapter.keys();
+    async keys(pattern?: string): Promise<Key[]> {
+      return await this.adapter.keys(pattern);
     },
 
-    async values(): Promise<Value[]> {
-      return await this.adapter.values();
+    async values(pattern?: string): Promise<Value[]> {
+      return await this.adapter.values(pattern);
     },
 
     async clear(): Promise<void> {
