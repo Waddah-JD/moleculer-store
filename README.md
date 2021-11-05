@@ -43,9 +43,15 @@ broker
 | update |  PUT /:key   | key, value |     key, value     | sets and returns a value for ONLY existing keys, throws an error if key doesn't exist                              |
 | delete | DELETE /:key |    key     |      boolean       | deletes a single entry; returns a true if delete was successful (there is a matching key), otherwise retruns false |
 | exists |              |    key     |      boolean       | checks if a key exists in a map                                                                                    |
-|  keys  |              |            |       key []       | returns a list of found keys                                                                                       |
-| values |              |            |      value []      | returns a list of found values                                                                                     |
+|  keys  |              |  pattern?  |       key []       | returns a list of found keys, takes an optional pattern to match keys by (pattern defaults to '\*')                |
+| values |              |  pattern?  |      value []      | returns a list of found values, takes an optional pattern to match keys' values by (pattern defaults to '\*')      |
 | clear  |   DELETE /   |            |        void        | clears a map                                                                                                       |
+
+```ts
+key: string | number;
+value: string | number | boolean | object;
+pattern: string;
+```
 
 ## Usage with Redis adapter
 
