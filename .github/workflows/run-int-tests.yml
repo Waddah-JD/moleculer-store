@@ -16,4 +16,4 @@ jobs:
         with:
           node-version: "16"
       - run: npm install
-      - run: npm test:int
+      - run: npm run test:int
