@@ -41,7 +41,7 @@
     "@types/node": "^18.0.0",
     "@types/redis": "^4.0.11",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
-    "@typescript-eslint/parser": "^4.31.1",
+    "@typescript-eslint/parser": "^5.28.0",
     "eslint": "^8.17.0",
     "jest": "^28.1.1",
     "moleculer": "^0.14.17",
