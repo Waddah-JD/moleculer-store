@@ -42,7 +42,7 @@
     "@types/redis": "^4.0.11",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.1",
-    "eslint": "^9.9.0",
+    "eslint": "^10.0.0",
     "jest": "^30.0.0",
     "moleculer": "^0.14.17",
     "prettier": "^3.0.0",
