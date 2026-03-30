@@ -44,7 +44,7 @@
     "@typescript-eslint/parser": "^8.0.1",
     "eslint": "^10.0.0",
     "jest": "^30.0.0",
-    "moleculer": "^0.14.17",
+    "moleculer": "^0.15.0",
     "prettier": "^3.0.0",
     "typescript": "^5.0.2"
   },
